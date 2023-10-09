@@ -5,20 +5,34 @@ from datetime import datetime
 
 class BaseModel():
     """This is superclass for the entire project
-    It takes no args by default and serves as Parent class"""
+    Attributes:
+                id - randomely generated uuid for each object
+                created_at - init timestamp for an instance
+                updated_at - update timestamp of an instance
+                DateF - general timestamp format that will be used
+                        on all instances
+    Methods:
+                __str__ : returns dict representation of an instance"""
+
+    DateF = "%Y-%m-%dT%H:%M:%S.%f"
+
     def __init__(self, *args, **kwargs):
-        DateF= "%Y-%m-%dT%H:%M:%S.%f"
-        """Init an instance with these default values"""
+        """Init an instance with provided dict or randomely generated values
+            Args:
+                *args: Not used at the moment
+                **kwargs: dict representation of an object
+                          init an object from the dict"""
+
         if not kwargs:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
         else:
-          for key, value in kwargs.items():
+            for key, value in kwargs.items():
                 if key in ["created_at", "updated_at"]:
-                    self.__dict__[key] = datetime.strptime(value, DateF)
+                    setattr(self, key, datetime.strptime(value, self.DateF))
                 elif key != "__class__":
-                    self.__dict__[key] = value
+                    setattr(self, key, value)
 
     def __str__(self):
         """Return custom dict representation of the instance """
