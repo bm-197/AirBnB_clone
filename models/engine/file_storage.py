@@ -5,6 +5,7 @@ deserializes JSON types
 """
 
 import json
+from copy import deepcopy
 from models.base_model import BaseModel
 
 
@@ -30,17 +31,19 @@ class FileStorage():
             object(obj): object to write
 
         """
-        self.__objects[obj.__class__.__name__ + '.' + str(obj)] = obj
+        self.__objects[obj.__class__.__name__ + '.' + str(obj.id)] = obj
 
     def save(self):
         """
         serializes __objects to json file.
         file path = __file_path
         """
+        temp_objects = deepcopy(self.__objects)
         with open(self.__file_path, 'w+') as file:
                 data = {key: BaseModel.to_dict(value)
-                        for key, value in self.__objects.items()}
+                        for key, value in temp_objects.items()}
                 json.dump(data, file)
+        
 
     def reload(self):
         """
