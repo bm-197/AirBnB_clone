@@ -5,7 +5,7 @@ import models
 import unittest
 from datetime import datetime
 from time import sleep
-for models.base_model import BaseModel
+from models.base_model import BaseModel
 
 class TestBaseModel_instatiation(unittest.TestCase):
     """Test for instatiation of the BaseModel class."""
@@ -27,6 +27,16 @@ class TestBaseModel_instatiation(unittest.TestCase):
         bm1 = BaseModel()
         bm2 = BaseModel()
         self.assertNotEqual(bm1.id, bm2.id)
+
+    def test_two_models_different_created_at(self):
+        bm1 = BaseModel()
+        sleep(0.05)
+        bm2 = BaseModel()
+        self.assertLess(bm1.created_at, bm2.created_at)
+    
+    
+    
     
 
-if __name__ == "__main__"
+if __name__ == "__main__":
+    unittest.main()
