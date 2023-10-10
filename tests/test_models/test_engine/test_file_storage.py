@@ -26,4 +26,7 @@ class TestFileStorage_instantiation(unittest.TestCase):
 
     def test_storage_initializes(self):
         self.assertEqual(type(models.storage), FileStorage)
-    
+
+
+if __name__ == "__main__":
+    unittest.main()
