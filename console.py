@@ -6,18 +6,12 @@ import models
 from models.base_model import BaseModel
 
 def convert(line):
-<<<<<<< HEAD
-    line_2 = []
-    if len(line) != 0:
-        line_2 = line.split(" ")
-=======
     """Split input from tty in with whitespace as a delimiter
         Args:
             line - tty input stream"""
     if len(line) == 0:
         return []
     line_2 = line.split(" ")
->>>>>>> d786d428a946a8ec02ee9945d6fd562b316e63ca
     return line_2
 
 class HBNBCommand(cmd.Cmd):
@@ -100,33 +94,24 @@ class HBNBCommand(cmd.Cmd):
         elif line_2[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
-<<<<<<< HEAD
-            for ob in storage.all().values():
-                if len(line_2) > 0 and argl[0] == obj.__class__.__name__:
-=======
             for ob in models.storage.all().values():
                 if line_2[0] == ob.__class__.__name__:
->>>>>>> d786d428a946a8ec02ee9945d6fd562b316e63ca
                     objl.append(ob.__str__())
                 elif len(line_2) == 0:
                     objl.append(ob.__str__())
         if len(objl) != 0:
             print(objl)
-<<<<<<< HEAD
-        
-    def do_update(self, line):
-        """Update a class instance of a given id by adding or updating
-        a given attribute key/value pair or dictionary."""
-        line_2 = convert(line)
-        obj = storage.all()
 
-        if len(line_2) == 0:
-            print("** class name missing **")
-            return False
+        
         
         if line_2[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
             return False
+
+        if line_2[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return False
+        
         
         if len(line_2) == 1:
             print("** instance id missing **")
@@ -157,12 +142,7 @@ class HBNBCommand(cmd.Cmd):
 
         storage.save()
                     
-                    
-=======
-
-
-                
->>>>>>> d786d428a946a8ec02ee9945d6fd562b316e63ca
+    
 
 
 if __name__ == '__main__':
