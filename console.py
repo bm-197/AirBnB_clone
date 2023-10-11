@@ -53,12 +53,14 @@ class HBNBCommand(cmd.Cmd):
 
         if len(line_2) == 0:
             print("** class name missing **")
+            return
         
         elif line_2[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         
         elif len(line_2) == 1:
             print("** instance id missing **")
+            return
 
         elif "{}.{}".format(line_2[0], line_2[1]) not in obj.keys():
             print("** no instance found **")
@@ -130,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         
         if len(line_2) == 3:
             try:
-                type(eval(len_2[2])) != dict
+                type(eval(line_2[2])) != dict
             except NameError:
                 print("** value missing **")
                 return False
@@ -144,10 +146,6 @@ class HBNBCommand(cmd.Cmd):
                 ob.__dict__[line_2[2]] = line_2[3]
 
         models.storage.save()
-
-
-                
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

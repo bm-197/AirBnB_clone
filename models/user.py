@@ -17,10 +17,3 @@ class User(BaseModel):
     first_name = ""
     last_name = ""
     
-    def __str__(self):
-        """
-        Returns string representation of the class
-        """
-        return "[{}] ({}) {}".format(__class__.__name__,
-                                     self.id, self.__dict__)
-    
