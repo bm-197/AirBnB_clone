@@ -6,7 +6,9 @@ from models import storage
 from models.base_model import BaseModel
 
 def convert(line):
-    line_2 = line.split(" ")
+    line_2 = []
+    if len(line) != 0:
+        line_2 = line.split(" ")
     return line_2
 
 class HBNBCommand(cmd.Cmd):
@@ -86,14 +88,58 @@ class HBNBCommand(cmd.Cmd):
         if len(line_2) > 0 and line_2[0] not in HBNBCommand.__classes:
             print("** class doesn't exits **")
         else:
-            for ob in storege.all().values():
+            for ob in storage.all().values():
                 if len(line_2) > 0 and argl[0] == obj.__class__.__name__:
                     objl.append(ob.__str__())
                 elif len(line_2) == 0:
                     objl.append(ob.__str__())
         if len(objl) != 0:
             print(objl)
-                
+        
+    def do_update(self, line):
+        """Update a class instance of a given id by adding or updating
+        a given attribute key/value pair or dictionary."""
+        line_2 = convert(line)
+        obj = storage.all()
+
+        if len(line_2) == 0:
+            print("** class name missing **")
+            return False
+        
+        if line_2[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return False
+        
+        if len(line_2) == 1:
+            print("** instance id missing **")
+            return False
+
+        """if  "{}.{}".format(line_2[0], line_2[1]) not in obj.keys():
+            print("** no instance found **")
+            return False"""
+        
+        if len(line_2) == 2:
+            print("** attribute name missing **")
+            return False
+        
+        if len(line_2) == 3:
+            try:
+                type(eval(len_2[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
+        
+        if len(line_2) == 4:
+            ob = obj["{}.{}".format(line_2[0], line_2[1])]
+            if line[2] in ob.__class__.__dict__.keys():
+                value_type = type(ob.__class__.__dict__[line_2[2]])
+                ob.__dict__[line_2[2]] = value_type(line_2[3])
+            else:
+                ob.__dict__[line_2[2]] = line_2[3]
+
+        storage.save()
+                    
+                    
 
 
 if __name__ == '__main__':
