@@ -4,6 +4,7 @@
 import cmd
 import models
 from models.base_model import BaseModel
+from models.user import User
 
 def convert(line):
     """Split input from tty in with whitespace as a delimiter
@@ -18,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter."""
 
     prompt = "(hbnb) "
-    __classes = {"BaseModel": BaseModel}
+    __classes = {"BaseModel": BaseModel, "User": User}
 
     def do_quit(self, line):
         """Quit command to exit the progrma."""
