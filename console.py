@@ -7,6 +7,7 @@ from models.base_model import BaseModel
 
 def convert(line):
 <<<<<<< HEAD
+<<<<<<< HEAD
     line_2 = []
     if len(line) != 0:
         line_2 = line.split(" ")
@@ -18,6 +19,9 @@ def convert(line):
         return []
     line_2 = line.split(" ")
 >>>>>>> d786d428a946a8ec02ee9945d6fd562b316e63ca
+=======
+    line_2 = line.split(" ")
+>>>>>>> parent of 29362e0... Added update method for the console app
     return line_2
 
 class HBNBCommand(cmd.Cmd):
@@ -101,7 +105,11 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         else:
 <<<<<<< HEAD
+<<<<<<< HEAD
             for ob in storage.all().values():
+=======
+            for ob in storege.all().values():
+>>>>>>> parent of 29362e0... Added update method for the console app
                 if len(line_2) > 0 and argl[0] == obj.__class__.__name__:
 =======
             for ob in models.storage.all().values():
@@ -112,6 +120,7 @@ class HBNBCommand(cmd.Cmd):
                     objl.append(ob.__str__())
         if len(objl) != 0:
             print(objl)
+<<<<<<< HEAD
 <<<<<<< HEAD
         
     def do_update(self, line):
@@ -163,6 +172,9 @@ class HBNBCommand(cmd.Cmd):
 
                 
 >>>>>>> d786d428a946a8ec02ee9945d6fd562b316e63ca
+=======
+                
+>>>>>>> parent of 29362e0... Added update method for the console app
 
 
 if __name__ == '__main__':
