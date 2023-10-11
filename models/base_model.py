@@ -37,7 +37,7 @@ class BaseModel():
 
     def __str__(self):
         """Return custom dict representation of the instance """
-        return f"[{__class__.__name__}] ({self.id}) {self.__dict__}"
+        return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
         """Update modifed time of the instance
