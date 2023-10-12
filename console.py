@@ -19,7 +19,15 @@ class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter."""
 
     prompt = "(hbnb) "
-    __classes = {"BaseModel": BaseModel, "User": User}
+    __classes = {
+        "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Place": Place,
+        "Amenity": Amenity,
+        "Review": Review}
+
 
     def do_quit(self, line):
         """Quit command to exit the progrma."""
