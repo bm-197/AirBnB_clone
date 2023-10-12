@@ -180,6 +180,13 @@ class HBNBCommand(cmd.Cmd):
             if hasattr(self, 'do_' + command):
                 method = getattr(self, 'do_' + command)
                 method(class_name)
+
+            elif command == "count" and class_name in self.__classes:
+                count = 0
+                for obj in models.storage.all().values():
+                    if obj.__class__.__name__ == class_name:
+                        count += 1
+                print(count)
         else:
             super().default(line)
 
