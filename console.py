@@ -2,6 +2,7 @@
 """Defines the HBnB console."""
 
 import cmd
+import re
 import models
 from models.base_model import BaseModel
 from models.user import User
@@ -160,6 +161,27 @@ class HBNBCommand(cmd.Cmd):
                 ob.__dict__[line_2[2]] = line_2[3]
 
         models.storage.save()
+
+    def default(self, line):
+        line_split = line.split(".")
+    
+        if len(line_split) != 2:
+            super().default(line)
+            return
+    
+        class_name, command = line_split
+        commands_to_match = ["all", "create", "show", "count"]
+
+        pattern = r'^({})\(\)?$'.format('|'.join(re.escape(item) for item in commands_to_match))
+        match = re.match(pattern, command)
+    
+        if match:
+            command = match[1]
+            if hasattr(self, 'do_' + command):
+                method = getattr(self, 'do_' + command)
+                method(class_name)
+        else:
+            super().default(line)
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
