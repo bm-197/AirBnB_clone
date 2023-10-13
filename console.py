@@ -172,9 +172,9 @@ class HBNBCommand(cmd.Cmd):
         class_name, command = line_split
         commands_to_match = ["all", "create", "show", "count"]
 
-        pattern = r"\((.*?)\)"
-        match = re.match(pattern, command)
-       # match = re.search(r"\((.*?)\)", command)
+        """pattern = r'^({})\(\)?$'.format('|'.join(re.escape(item) for item in commands_to_match))
+        match = re.match(pattern, command)"""
+        match = re.search(r"\((.*?)\)", command)
 
     
         if match:
