@@ -170,18 +170,15 @@ class HBNBCommand(cmd.Cmd):
             return
     
         class_name, command = line_split
-        commands_to_match = ["all", "create", "show", "count"]
-
-        """pattern = r'^({})\(\)?$'.format('|'.join(re.escape(item) for item in commands_to_match))
-        match = re.match(pattern, command)"""
         match = re.search(r"\((.*?)\)", command)
-
     
         if match:
             command = [command[:match.span()[0]], match.group()[1: -1]]
             if hasattr(self, 'do_' + command[0]):
                 method = getattr(self, 'do_' + command[0])
-                call = f"{class_name} {command[1]}"
+                call = class_name
+                if len(command[1]) != 0:
+                    call = f"{call} {command[1]}"
                 method(call)
 
             elif command[0] == "count" and class_name in self.__classes:
