@@ -170,6 +170,7 @@ class HBNBCommand(cmd.Cmd):
             return
     
         class_name, command = line_split
+        commands_to_match = ["all", "create", "show", "count"]
 
     # List of commands to match
         commands_to_match = ["all", "create", "show"]
@@ -183,10 +184,15 @@ class HBNBCommand(cmd.Cmd):
             if hasattr(self, 'do_' + command):
             # Use getattr to retrieve the method by name
                 method = getattr(self, 'do_' + command)
-            # Call the method
                 method(class_name)
+
+            elif command == "count" and class_name in self.__classes:
+                count = 0
+                for obj in models.storage.all().values():
+                    if obj.__class__.__name__ == class_name:
+                        count += 1
+                print(count)
         else:
-        # No match, call the superclass's default method
             super().default(line)
 
 if __name__ == '__main__':
