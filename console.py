@@ -172,16 +172,19 @@ class HBNBCommand(cmd.Cmd):
         class_name, command = line_split
         commands_to_match = ["all", "create", "show", "count"]
 
-        pattern = r'^({})\(\)?$'.format('|'.join(re.escape(item) for item in commands_to_match))
+        pattern = r"\((.*?)\)"
         match = re.match(pattern, command)
+       # match = re.search(r"\((.*?)\)", command)
+
     
         if match:
-            command = match[1]
-            if hasattr(self, 'do_' + command):
-                method = getattr(self, 'do_' + command)
-                method(class_name)
+            command = [command[:match.span()[0]], match.group()[1: -1]]
+            if hasattr(self, 'do_' + command[0]):
+                method = getattr(self, 'do_' + command[0])
+                call = f"{class_name} {command[1]}"
+                method(call)
 
-            elif command == "count" and class_name in self.__classes:
+            elif command[0] == "count" and class_name in self.__classes:
                 count = 0
                 for obj in models.storage.all().values():
                     if obj.__class__.__name__ == class_name:
