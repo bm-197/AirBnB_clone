@@ -172,17 +172,12 @@ class HBNBCommand(cmd.Cmd):
         class_name, command = line_split
         commands_to_match = ["all", "create", "show", "count"]
 
-    # List of commands to match
-        commands_to_match = ["all", "create", "show"]
-
-    # Construct a regex pattern to match the command
         pattern = r'^({})\(\)?$'.format('|'.join(re.escape(item) for item in commands_to_match))
         match = re.match(pattern, command)
     
         if match:
             command = match[1]
             if hasattr(self, 'do_' + command):
-            # Use getattr to retrieve the method by name
                 method = getattr(self, 'do_' + command)
                 method(class_name)
 
