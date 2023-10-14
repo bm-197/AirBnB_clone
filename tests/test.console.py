@@ -13,9 +13,11 @@ class TestHBNBCommand_prompting(unittest.TestCase):
     """Unittests for testing prompting of the HBNB command interpreter."""
 
     def test_prompt_string(self):
+        """Test prompt string"""
         self.assertEqual("(hbnb) ", HBNBCommand.prompt)
 
     def test_empty_line(self):
+        """Test empty line"""
         with patch("sys.stdout", new=StringIO()) as file:
             self.assertFalse(HBNBCommand().onecmd(""))
             self.assertEqual("", file.getvalue().strip())
@@ -25,12 +27,14 @@ class TestHBNBCommand_help(unittest.TestCase):
     """Unittests for testing help messages of the HBNB command interpreter."""
 
     def test_help_quit(self):
+        """Test Quit command help text"""
         help_out = "Quit command to exit the program."
         with patch("sys.stdout", new=StringIO()) as file:
             self.assertFalse(HBNBCommand().onecmd("help quit"))
             self.assertEqual(help_out, file.getvalue().strip())
 
     def test_help_create(self):
+        """Test create command help text"""
         help_out = ("Usage: create <class>\n        "
                     "Create a new class instance and print its id.")
         with patch("sys.stdout", new=StringIO()) as file:
@@ -38,12 +42,14 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(help_out, file.getvalue().strip())
 
     def test_help_EOF(self):
+        """Test EOF case help text"""
         help_out = "EOF signal to exit the program."
         with patch("sys.stdout", new=StringIO()) as file:
             self.assertFalse(HBNBCommand().onecmd("help EOF"))
             self.assertEqual(help_out, file.getvalue().strip())
 
     def test_help_show(self):
+        """Test show command help text"""
         help_out = ("Usage: show <class> <id> or <class>.show(<id>)\n        "
                     "Display the string representation of a class instance of"
                     " a given id.")
@@ -52,6 +58,7 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(help_out, file.getvalue().strip())
 
     def test_help_destroy(self):
+        """Test destroy command help text"""
         h_o = ("Usage: destroy <class> <id> or <class>.destroy(<id>)\n        "
                "Delete a class instance of a given id.")
         with patch("sys.stdout", new=StringIO()) as file:
@@ -59,6 +66,7 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(h_o, file.getvalue().strip())
 
     def test_help_all(self):
+        """Test all command help text"""
         h_o = ("Usage: all or all <class> or <class>.all()\n        "
                "Display string representations of all instances of given class"
                ".\n        If no class is specified, displays all instantiated"
@@ -68,6 +76,7 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(h_o, file.getvalue().strip())
 
     def test_help_count(self):
+        """Test count command help text"""
         help_out = ("Usage: count <class> or <class>.count()\n        "
                     "Retrieve the number of instances of a given class.")
         with patch("sys.stdout", new=StringIO()) as file:
@@ -75,6 +84,7 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(help_out, file.getvalue().strip())
 
     def test_help_update(self):
+        """Test update command help text"""
         h_o = ("Usage: update <class> <id> <attrib_name> <attrib_value> or"
                "\n       <class>.update(<id>, <attribute_name>, <attrib_value"
                ">) or\n       <class>.update(<id>, <dictionary>)\n        "
@@ -85,6 +95,7 @@ class TestHBNBCommand_help(unittest.TestCase):
             self.assertEqual(h_o, file.getvalue().strip())
 
     def test_help(self):
+        """ test help command output"""
         h_o = ("Documented commands (type help <topic>):\n"
                "========================================\n"
                "EOF  all  count  create  destroy  help  quit  show  update")
@@ -97,10 +108,12 @@ class TestHBNBCommand_exit(unittest.TestCase):
     """Unittests for testing exiting from the HBNB command interpreter."""
 
     def test_quit_exits(self):
+        """Test if quit command exits the console"""
         with patch("sys.stdout", new=StringIO()) as file:
             self.assertTrue(HBNBCommand().onecmd("quit"))
 
     def test_EOF_exits(self):
+        """Test if EOF condition exits the console"""
         with patch("sys.stdout", new=StringIO()) as file:
             self.assertTrue(HBNBCommand().onecmd("EOF"))
 
