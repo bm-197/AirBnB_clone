@@ -20,7 +20,7 @@ def convert(line):
             line - tty input stream"""
     if len(line) == 0:
         return []
-    line_2 = line.split(" " )
+    line_2 = line.split(" ")
     return line_2
 
 
@@ -132,13 +132,13 @@ class HBNBCommand(cmd.Cmd):
         a given attribute key/value pair or dictionary."""
         line_2 = convert(line)
         index = 0
-        if len(line_2 ) >= 4 and line_2[3].startswith('"'):
+        if len(line_2) >= 4 and line_2[3].startswith('"'):
             for arg in line_2:
                 if arg.endswith('"'):
                     index = line_2.index(arg)
             if len(line_2) > index:
                 line_2[3] = " ".join(line_2[3:index + 1])
-            
+
         obj = models.storage.all()
 
         if len(line_2) == 0:
@@ -195,7 +195,6 @@ class HBNBCommand(cmd.Cmd):
                 method = getattr(self, 'do_' + command[0])
                 call = class_name
                 if command[0] == "update":
-                    print("ahhhhhhh")
                     id_dict = command[1].split(", ", maxsplit=1)
                     if (len(id_dict) > 1 and id_dict[1][0] == "{"):
                         inst_id, dict = id_dict
@@ -203,14 +202,14 @@ class HBNBCommand(cmd.Cmd):
                         dict = dict.strip('"')
                         dict = ast.literal_eval(dict)
                         for key, value in dict.items():
-                            args =  inst_id + " " + key + " " + value
+                            args = inst_id + " " + key + " " + value
                             method(f"{call} {args}")
                         return
                     else:
                         args = ""
-                        args = ''.join(char for char in command[1] if char not in [',', '"'])
+                        args = ''.join(char for char in command[1] if
+                                       char not in [',', '"'])
                         if args != command[1]:
-                            print(args)
                             call = f"{call} {args}"
                             method(call)
                         else:
