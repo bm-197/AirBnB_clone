@@ -2,6 +2,7 @@
 """Defines the HBnB console."""
 
 import cmd
+import ast
 import re
 import models
 from models.base_model import BaseModel
@@ -19,7 +20,7 @@ def convert(line):
             line - tty input stream"""
     if len(line) == 0:
         return []
-    line_2 = line.split(" ")
+    line_2 = line.split(" " )
     return line_2
 
 
@@ -66,6 +67,7 @@ class HBNBCommand(cmd.Cmd):
         """Display the string representation of a class instance
             of a given id."""
         line_2 = convert(line)
+        line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
 
         if len(line_2) == 0:
@@ -74,6 +76,7 @@ class HBNBCommand(cmd.Cmd):
 
         elif line_2[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
+            return
 
         elif len(line_2) == 1:
             print("** instance id missing **")
@@ -81,6 +84,7 @@ class HBNBCommand(cmd.Cmd):
 
         elif "{}.{}".format(line_2[0], line_2[1]) not in obj.keys():
             print("** no instance found **")
+            return
         print(obj["{}.{}".format(line_2[0], line_2[1])])
 
     def do_destroy(self, line):
@@ -125,6 +129,14 @@ class HBNBCommand(cmd.Cmd):
         """Update a class instance of a given id by adding or updating
         a given attribute key/value pair or dictionary."""
         line_2 = convert(line)
+        index = 0
+        if len(line_2 ) >= 4:
+            for arg in line_2:
+                if arg.endswith('"'):
+                    index = line_2.index(arg)
+            if len(line_2) > index:
+                line_2[3] = " ".join(line_2[3:index + 1])
+            
         obj = models.storage.all()
 
         if len(line_2) == 0:
@@ -154,7 +166,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return False
 
-        if len(line_2) == 4:
+        if len(line_2) >= 4:
+            line_2[3] = line_2[3].strip('"')
             ob = obj["{}.{}".format(line_2[0], line_2[1])]
             if line[2] in ob.__class__.__dict__.keys():
                 value_type = type(ob.__class__.__dict__[line_2[2]])
@@ -180,14 +193,29 @@ class HBNBCommand(cmd.Cmd):
                 method = getattr(self, 'do_' + command[0])
                 call = class_name
                 if command[0] == "update":
-                    args = ""
-                    args = ''.join(char for char in command[1] if char != ',')
-                    if args != command[1]:
-                        call = f"{call} {args}"
-                        method(call)
+                    print("ahhhhhhh")
+                    id_dict = command[1].split(", ", maxsplit=1)
+                    if (len(id_dict) > 1 and id_dict[1][0] == "{"):
+                        inst_id, dict = id_dict
+                        inst_id = inst_id.strip('"')
+                        dict = dict.strip('"')
+                        dict = ast.literal_eval(dict)
+                        for key, value in dict.items():
+                            args =  inst_id + " " + key + " " + value
+                            method(f"{call} {args}")
+                        return
                     else:
-                        super().default(line)
+                        args = ""
+                        args = ''.join(char for char in command[1] if char not in [',', '"'])
+                        if args != command[1]:
+                            call = f"{call} {args}"
+                            method(call)
+                        else:
+                            method(call)
+                    return
+
                 if len(command[1]) != 0:
+                    command[1] = command[1].strip('"')
                     call = f"{call} {command[1]}"
                 method(call)
 
