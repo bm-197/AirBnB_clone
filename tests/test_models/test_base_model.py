@@ -35,13 +35,13 @@ class TestBaseModel_instatiation(unittest.TestCase):
         sleep(0.05)
         bm2 = BaseModel()
         self.assertLess(bm1.created_at, bm2.created_at)
-    
+
     def test_two_models_different_updated_at(self):
         bm1 = BaseModel()
         sleep(0.05)
         bm2 = BaseModel()
         self.assertLess(bm1.updated_at, bm2.updated_at)
-    
+
     def test_instantiation_with_kwargs(self):
         dt = datetime.now()
         dt_iso = dt.isoformat()
@@ -61,6 +61,7 @@ class TestBaseModel_instatiation(unittest.TestCase):
         self.assertEqual(bm.id, "345")
         self.assertEqual(bm.created_at, dt)
         self.assertEqual(bm.updated_at, dt)
- 
+
+
 if __name__ == "__main__":
     unittest.main()

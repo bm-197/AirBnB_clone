@@ -111,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
             models.storage.save()
 
     def do_all(self, line):
-        """Display string representations of all instances of a given class."""
+        """Display string representations of all instances of given class."""
         line_2 = convert(line) if len(line) > 0 else None
         objl = []
         if line_2 is None:

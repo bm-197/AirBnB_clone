@@ -48,7 +48,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         sleep(0.05)
         am2 = Amenity()
         self.assertLess(am1.updated_at, am2.updated_at)
-    
+
     def test_args_unused(self):
         am = Amenity(None)
         self.assertNotIn(None, am.__dict__.values())
@@ -65,4 +65,3 @@ class TestAmenity_instantiation(unittest.TestCase):
     def test_instantiation_with_None_kwargs(self):
         with self.assertRaises(TypeError):
             Amenity(id=None, created_at=None, updated_at=None)
-    
