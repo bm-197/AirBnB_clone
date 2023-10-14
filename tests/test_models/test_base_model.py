@@ -7,10 +7,12 @@ from datetime import datetime
 from time import sleep
 from models.base_model import BaseModel
 
+
 class TestBaseModel_instatiation(unittest.TestCase):
     """Test for instatiation of the BaseModel class."""
     def test_no_args_instantiates(self):
         self.assertEqual(BaseModel, type(BaseModel()))
+
     def test_new_instance_stored_in_objects(self):
         self.assertIn(BaseModel(), models.storage.all().values())
 
@@ -33,12 +35,7 @@ class TestBaseModel_instatiation(unittest.TestCase):
         sleep(0.05)
         bm2 = BaseModel()
         self.assertLess(bm1.created_at, bm2.created_at)
-    
-    
-    
-    
-    
-    
+
 
 if __name__ == "__main__":
     unittest.main()
