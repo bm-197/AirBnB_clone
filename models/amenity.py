@@ -1,8 +1,9 @@
+#!/usr/bin/python3
 """A module for Amenity Class"""
 from models.base_model import BaseModel
 
 
-class Amenity:
+class Amenity(BaseModel):
     """Represent an amenity.
 
     Attributes:
