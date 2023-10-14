@@ -22,6 +22,7 @@ class FileStorage():
 
     __file_path = "file.json"
     __objects = {}
+
     def all(self):
         """
         Returns dictionary representation of all objects
@@ -45,10 +46,9 @@ class FileStorage():
         """
         temp_objects = deepcopy(self.__objects)
         with open(self.__file_path, 'w+') as file:
-                data = {key: value.to_dict()
-                        for key, value in temp_objects.items()}
-                json.dump(data, file)
-        
+            data = {key: value.to_dict()
+                    for key, value in temp_objects.items()}
+            json.dump(data, file)
 
     def reload(self):
         """
@@ -63,7 +63,3 @@ class FileStorage():
                     self.new(eval(cls)(**value))
         except Exception:
             pass
-
-
-
-    
