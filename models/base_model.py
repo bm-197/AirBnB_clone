@@ -3,6 +3,7 @@ import uuid
 import models
 from datetime import datetime
 
+
 class BaseModel():
     """This is superclass for the entire project
     Attributes:
@@ -44,7 +45,6 @@ class BaseModel():
         More implementation will be added later on (WIP method)"""
         self.updated_at = datetime.now()
         models.storage.save()
-        
 
     def to_dict(self):
         """Return dict representation of the instance with additional
