@@ -163,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
         models.storage.save()
 
     def default(self, line):
-        line_split = line.split(".")
+        line_split = line.split(".", maxsplit=1)
     
         if len(line_split) != 2:
             super().default(line)
@@ -177,6 +177,14 @@ class HBNBCommand(cmd.Cmd):
             if hasattr(self, 'do_' + command[0]):
                 method = getattr(self, 'do_' + command[0])
                 call = class_name
+                if command[0] == "update":
+                    args = ""
+                    for char in command[1]:
+                        if char != ",":
+                            args = args + str(char)
+                    call = f"{call} {args}"
+                    method(call)
+                    return
                 if len(command[1]) != 0:
                     call = f"{call} {command[1]}"
                 method(call)
