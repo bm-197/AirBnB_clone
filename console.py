@@ -90,10 +90,12 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Delete a class instance of a given id."""
         line_2 = convert(line)
+        line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
 
         if len(line_2) == 0:
             print("** class name missing **")
+            return
 
         elif line_2[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
@@ -130,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
         a given attribute key/value pair or dictionary."""
         line_2 = convert(line)
         index = 0
-        if len(line_2 ) >= 4:
+        if len(line_2 ) >= 4 and line_2[3].startswith('"'):
             for arg in line_2:
                 if arg.endswith('"'):
                     index = line_2.index(arg)
@@ -208,6 +210,7 @@ class HBNBCommand(cmd.Cmd):
                         args = ""
                         args = ''.join(char for char in command[1] if char not in [',', '"'])
                         if args != command[1]:
+                            print(args)
                             call = f"{call} {args}"
                             method(call)
                         else:
