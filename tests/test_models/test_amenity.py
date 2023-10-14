@@ -12,44 +12,74 @@ class TestAmenity_instantiation(unittest.TestCase):
     """Unittests for testing instantiation of the Amenity class."""
 
     def test_no_args_instantiates(self):
+        """
+        Test for instances with no args
+        """
         self.assertEqual(Amenity, type(Amenity()))
 
     def test_new_instance_stored_in_objects(self):
+        """
+        Test for instances stored in objects
+        """
         self.assertIn(Amenity(), models.storage.all().values())
 
     def test_id_is_public_str(self):
+        """
+        Test if id is public string
+        """
         self.assertEqual(str, type(Amenity().id))
 
     def test_created_at_is_public_datetime(self):
+        """
+        created_at is public date time
+        """
         self.assertEqual(datetime, type(Amenity().created_at))
 
     def test_updated_at_is_public_datetime(self):
+        """
+        updated_at is public timestamp
+        """
         self.assertEqual(datetime, type(Amenity().updated_at))
 
     def test_name_is_public_class_attribute(self):
+        """
+        Test name is public string attrib
+        """
         am = Amenity()
         self.assertEqual(str, type(Amenity.name))
         self.assertIn("name", dir(Amenity()))
         self.assertNotIn("name", am.__dict__)
 
     def test_two_amenities_unique_ids(self):
+        """
+        Test if instances are unique
+        """
         am1 = Amenity()
         am2 = Amenity()
         self.assertNotEqual(am1.id, am2.id)
 
     def test_two_amenities_different_created_at(self):
+        """
+        diffrent instances have diffrent creation timestamp
+        """
         am1 = Amenity()
         sleep(0.05)
         am2 = Amenity()
         self.assertLess(am1.created_at, am2.created_at)
 
     def test_two_amenities_different_updated_at(self):
+        """
+        Two instances have diffrent update timestamp
+        """
         am1 = Amenity()
         sleep(0.05)
         am2 = Amenity()
         self.assertLess(am1.updated_at, am2.updated_at)
 
     def test_args_unused(self):
+        """
+        Test if args are unused
+        """
         am = Amenity(None)
         self.assertNotIn(None, am.__dict__.values())
 
@@ -63,5 +93,7 @@ class TestAmenity_instantiation(unittest.TestCase):
         self.assertEqual(am.updated_at, dt)
 
     def test_instantiation_with_None_kwargs(self):
+        """
+        Init with none kwargs"""
         with self.assertRaises(TypeError):
             Amenity(id=None, created_at=None, updated_at=None)
