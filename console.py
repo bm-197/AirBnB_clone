@@ -38,7 +38,7 @@ class HBNBCommand(cmd.Cmd):
         "Review": Review}
 
     def do_quit(self, line):
-        """Quit command to exit the progrma."""
+        """Quit command to exit the program."""
         return True
 
     def do_EOF(self, line):
@@ -65,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Display the string representation of a class instance
-            of a given id."""
+        of a given id."""
         line_2 = convert(line)
         line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
