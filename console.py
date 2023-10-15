@@ -56,6 +56,7 @@ class HBNBCommand(cmd.Cmd):
 
         if len(line_2) == 0:
             print("** class name missing **")
+            return
 
         elif line_2[0] not in self.__classes:
             print("** class doesn't exit **")
@@ -67,7 +68,8 @@ class HBNBCommand(cmd.Cmd):
         """Display the string representation of a class instance
         of a given id."""
         line_2 = convert(line)
-        line_2[-1] = line_2[-1].strip('"')
+        if len(line_2) > 1:
+            line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
 
         if len(line_2) == 0:
@@ -90,7 +92,8 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Delete a class instance of a given id."""
         line_2 = convert(line)
-        line_2[-1] = line_2[-1].strip('"')
+        if len(line_2) > 1:
+            line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
 
         if len(line_2) == 0:
