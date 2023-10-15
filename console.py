@@ -118,7 +118,8 @@ class HBNBCommand(cmd.Cmd):
         line_2 = convert(line) if len(line) > 0 else None
         objl = []
         if line_2 is None:
-            print("** class name missing **")
+            for ob in models.storage.all().values():
+                objl.append(ob.__str__())
         elif line_2[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
