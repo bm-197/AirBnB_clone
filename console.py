@@ -56,9 +56,11 @@ class HBNBCommand(cmd.Cmd):
 
         if len(line_2) == 0:
             print("** class name missing **")
+            return
 
         elif line_2[0] not in self.__classes:
             print("** class doesn't exit **")
+            return
 
         print(self.__classes[line_2[0]]().id)
         models.storage.save()
@@ -67,7 +69,8 @@ class HBNBCommand(cmd.Cmd):
         """Display the string representation of a class instance
         of a given id."""
         line_2 = convert(line)
-        line_2[-1] = line_2[-1].strip('"')
+        if len(line_2) > 1:
+            line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
 
         if len(line_2) == 0:
@@ -90,7 +93,8 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Delete a class instance of a given id."""
         line_2 = convert(line)
-        line_2[-1] = line_2[-1].strip('"')
+        if len(line_2) > 1:
+            line_2[-1] = line_2[-1].strip('"')
         obj = models.storage.all()
 
         if len(line_2) == 0:
@@ -115,7 +119,8 @@ class HBNBCommand(cmd.Cmd):
         line_2 = convert(line) if len(line) > 0 else None
         objl = []
         if line_2 is None:
-            print("** class name missing **")
+            for ob in models.storage.all().values():
+                objl.append(ob.__str__())
         elif line_2[0] not in self.__classes:
             print("** class doesn't exist **")
         else:
@@ -202,7 +207,7 @@ class HBNBCommand(cmd.Cmd):
                         dict = dict.strip('"')
                         dict = ast.literal_eval(dict)
                         for key, value in dict.items():
-                            args = inst_id + " " + key + " " + value
+                            args = inst_id + " " + key + " " + str(value)
                             method(f"{call} {args}")
                         return
                     else:
