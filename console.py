@@ -207,7 +207,7 @@ class HBNBCommand(cmd.Cmd):
                         dict = dict.strip('"')
                         dict = ast.literal_eval(dict)
                         for key, value in dict.items():
-                            args = inst_id + " " + key + " " + value
+                            args = inst_id + " " + key + " " + str(value)
                             method(f"{call} {args}")
                         return
                     else:
