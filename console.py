@@ -60,6 +60,7 @@ class HBNBCommand(cmd.Cmd):
 
         elif line_2[0] not in self.__classes:
             print("** class doesn't exit **")
+            return
 
         print(self.__classes[line_2[0]]().id)
         models.storage.save()
